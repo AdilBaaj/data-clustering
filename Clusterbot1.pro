@@ -194,3 +194,5 @@ else:unix: LIBS += -L$$PWD/../../Libraries_cpp/vtk/lib/ -lvtkzlib
 
 INCLUDEPATH += $$PWD/../../Libraries_cpp/vtk/include
 DEPENDPATH += $$PWD/../../Libraries_cpp/vtk/include
+
+QMAKE_CXXFLAGS += -std=c++11 -DDLIB_NO_GUI_SUPPORT

@@ -15,19 +15,19 @@ public:
 
 private:
 
-    int m_auto; //int
-    int m_manuel; //int
-    int m_kpca; //int
-    int m_kclus; //int
-    int m_c2d_1; //int
-    int m_c2d_2; //int
-    int m_c3d_1; //int
-    int m_c3d_2; //int
-    int m_c3d_3; //int
-    int m_linearKmean; //int
-    int m_polynomialKmean; //int
-    int m_radialbasisKmean; //int
-    int m_spectralClustering; //int
+    int m_auto;
+    int m_manuel;
+    int m_kpca;
+    int m_kclus;
+    int m_c2d_1;
+    int m_c2d_2;
+    int m_c3d_1;
+    int m_c3d_2;
+    int m_c3d_3;
+    int m_linearKmean;
+    int m_polynomialKmean;
+    int m_radialbasisKmean;
+    int m_spectralClustering;
     QList<int> m_inputParams;
     std::string m_varAreCol;
     std::string m_path;
@@ -35,4 +35,4 @@ private:
     unsigned long m_nb_cols;
 };
 
-#endif // DATAVISUALIZATIONPROGRAM_H
+#endif

@@ -23,52 +23,52 @@ namespace patch
 using namespace std;
 
 //========================================================================================================
-// CLASSE DATASET
+// CLASS DATASET
 
 //----------------------------------------------------------------------
-// CONSTRUCTEUR
-Dataset::Dataset():m_rows(1),m_columns(1) // Constructeur par défaut pour le dataset (1 colonne, 1 ligne)
+// Constructor
+Dataset::Dataset():m_rows(1),m_columns(1) // Default constructor for dataset (1 col, 1 row)
 {
     m_dataset.resize(m_columns);
     m_headers.resize(m_columns);
 
-    for (int j = 0; j < m_columns; ++j) // pour chaque colonne
+    for (int j = 0; j < m_columns; ++j) // for each col
     {
-        m_dataset[j] = Data(m_rows, patch::to_string(j)); //chaque colonne est une data avec pour nom son numéro
-        m_headers[j] = m_dataset[j].get_header(); // chaque nom de colonne est le nom de la data correspondant
+        m_dataset[j] = Data(m_rows, patch::to_string(j)); //Each column is a data with its number as id
+        m_headers[j] = m_dataset[j].get_header(); // Name of each column is the name of the corresponding data
     }
 }
 
 
-Dataset::Dataset(int rows,int columns):m_rows(rows),m_columns(columns) // Constructeur surchargé de plusieurs lignes et plusieurs colonnes
+Dataset::Dataset(int rows,int columns):m_rows(rows),m_columns(columns)
 {
     m_dataset.resize(m_columns);
     m_headers.resize(m_columns);
 
-    for (int j = 0; j < columns; ++j) // Pour chaque colonne
+    for (int j = 0; j < columns; ++j) // for each column
     {
-        m_dataset[j] = Data(m_rows,patch::to_string(j)); // On crée une Data
-        m_headers[j] = m_dataset[j].get_header(); // On affecte bien le nom correspondant
+        m_dataset[j] = Data(m_rows,patch::to_string(j)); // We create a data
+        m_headers[j] = m_dataset[j].get_header(); // Affect correponding name
     }
 }
 
 Dataset::Dataset(std::string path, unsigned long rows, unsigned long columns): m_rows(rows), m_columns(columns), m_path(path)
-    // Surcharge du constructeur, crée un dataset à partir d'un fichier csv (à partir du chemin du fichier)
-    // Il doit être indiqué si le fichier comporte les noms des datas ou non
+    // Create dataset from csv file (input is path of file)
+    // Must precise if file contains headers for each column or not
 {
-    m_dataset.resize(m_columns); // crée un Dataset de n datas
-    m_headers.resize(m_columns); // crée un vecteur de n noms
+    m_dataset.resize(m_columns); // Create dataset with n data
+    m_headers.resize(m_columns); // create vector with n names
 
-    for (int j = 0; j < m_columns; ++j) // pour chaque colonne
+    for (int j = 0; j < m_columns; ++j) // loop on columns
     {
-        m_dataset[j] = Data(m_rows,patch::to_string(j)); // on crée une data avec pour nom le numéro de la colonne
-        m_headers[j] = m_dataset[j].get_header(); // on change le nom avec le nom de la data correspondant
+        m_dataset[j] = Data(m_rows,patch::to_string(j)); // create data with number of column as id
+        m_headers[j] = m_dataset[j].get_header(); // give corresponding name
     }
 
-    ifstream  data(path.c_str()); // on récupère le flux en lecture à partir du chemin du fichier
-    string line; // on crée une string qui stockera une ligne l'une aprés l'autre
-    int row = 0; // variable d'itération sur les lignes
-    int col = 0; // variable d'itérations sur les colonnes
+    ifstream  data(path.c_str()); // read file from path
+    string line;
+    int row = 0;
+    int col = 0;
 
     while(getline(data,line))
     {
@@ -76,7 +76,7 @@ Dataset::Dataset(std::string path, unsigned long rows, unsigned long columns): m
         string        cell;
         while(getline(lineStream,cell,','))
         {
-            if( 0 <= int(cell.find("\r"))) //si retour à la ligne
+            if( 0 <= int(cell.find("\r"))) //If end of row
             {
                 std::string a;
                 std::string b;
@@ -98,15 +98,15 @@ Dataset::Dataset(std::string path, unsigned long rows, unsigned long columns): m
             }
             else
             {
-                m_dataset[col].set_value(row, std::atof(cell.c_str())); // on stocke la valeur dans le dataset
-                col++; // on itère sur les colonnes
+                m_dataset[col].set_value(row, std::atof(cell.c_str())); // keep value on dataset
+                col++; // iterate on columns
             }
         }
     }
 }
 
 
-Dataset Dataset::Dataset2D(int x,int y) // CrÈation d'un dataset ‡ deux colonnes ‡ partir d'un dataset en choisissant les deux colonnes qui nous intÈressent
+Dataset Dataset::Dataset2D(int x,int y) // Create a two columns sub-dataset from another dataset
 {
     Dataset data2D(m_rows,2);
     data2D.set_data(0,m_dataset[x]);
@@ -114,7 +114,7 @@ Dataset Dataset::Dataset2D(int x,int y) // CrÈation d'un dataset ‡ deux colonnes
     return data2D;
 }
 
-Dataset Dataset::Dataset3D(int x,int y,int z) // Idem qu'au dessus mais pour 3 colonnes
+Dataset Dataset::Dataset3D(int x,int y,int z) // Idem with three columns
 {
     Dataset data3D(m_rows,3);
     data3D.set_data(0,m_dataset[x]);
@@ -125,10 +125,7 @@ Dataset Dataset::Dataset3D(int x,int y,int z) // Idem qu'au dessus mais pour 3 c
 
 
 //----------------------------------------------------------------------
-// LECTURE DEPUIS CSV
-
-
-
+// Read from csv file
 
 void read_csv(string path)
 {
@@ -148,7 +145,7 @@ void read_csv(string path)
 
 
 //----------------------------------------------------------------------
-// DESTRUCTEUR
+// Destructor
 
 Dataset::~Dataset()
 {
@@ -159,40 +156,40 @@ Dataset::~Dataset()
 }
 
 //----------------------------------------------------------------------
-// ACCESSEURS
+// Getters
 
-unsigned int Dataset::get_nb_rows() // Renvoie le nombre de lignes
+unsigned int Dataset::get_nb_rows() // Get number of rows
 {
     return m_rows;
 }
 
-unsigned int Dataset::get_nb_columns() // Renvoie le nombre de colonnes
+unsigned int Dataset::get_nb_columns() // Get number of columns
 {
     return m_columns;
 }
 
 
-double Dataset::get_element(int i,int j) // renvoie la valeur (i,j) du dataset
+double Dataset::get_element(int i,int j) // Get value at position (i,j) of dataset
 {
     return m_dataset[j].get_value(i);
 }
 
-void Dataset::set_element(int i,int j,double value) // affecte une valeur ‡ l'ÈlÈment (i,j)
+void Dataset::set_element(int i,int j,double value) // Set value at (i,j) position
 {
     m_dataset[j].set_value(i,value);
 }
 
-void Dataset::set_header(int j, string header) // change le header j du dataset
+void Dataset::set_header(int j, string header) // Change header of j-th column
 {
     m_headers[j] = header;
 }
 
-Data Dataset::get_data(int j) // rÈcupËre la colonne j du dataset
+Data Dataset::get_data(int j) // get j-th column
 {
     return m_dataset[j];
 }
 
-void Dataset::set_data(int j,Data full_data) // change complËtement la colonne j d'un dataset ‡ partir d'une data
+void Dataset::set_data(int j,Data full_data) // replace j-th column of dataset by a data
 {
     m_dataset[j] = full_data;
 }

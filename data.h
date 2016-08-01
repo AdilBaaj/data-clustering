@@ -10,7 +10,7 @@ class Data
 {
 public:
     Data();
-    Data(int rows, std::string header);//Constructeur
+    Data(int rows, std::string header);//Constructor
     double get_value(int i);
     void set_value(int i,double value);
     unsigned int get_nb_rows();

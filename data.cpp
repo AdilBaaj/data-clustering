@@ -2,12 +2,8 @@
 #include <iostream>
 #include <string>
 
-/* 
-- cr�e un header automatiquement si pas de header
-*/
-
 //----------------------------------------------------------------------
-// CONSTRUCTEUR
+// Constructor
 Data::Data()
 {
 }
@@ -18,10 +14,10 @@ Data::Data(int rows, std::string header) : m_rows(rows), m_header(header)
 }
 
 //----------------------------------------------------------------------
-// ACCESSEURS
+// Getters
 
 
-unsigned int Data::get_nb_rows() // Renvoie le nombre de lignes
+unsigned int Data::get_nb_rows() // Get number of lines
 {
     return m_rows;
 }
@@ -31,7 +27,7 @@ std::string Data::get_header()
     return m_header;
 }
 
-double Data::get_value(int i) // Renvoie la valeur i du data set
+double Data::get_value(int i) // Get the i-th value of dataset
 {
     return m_data[i];
 }
@@ -49,7 +45,7 @@ void Data::set_header(std::string header)
 
 
 //----------------------------------------------------------------------
-// Destructeur
+// Destructor
 
 
 

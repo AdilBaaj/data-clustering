@@ -16,22 +16,6 @@ Datavisualizationprogram::Datavisualizationprogram()
 Datavisualizationprogram::Datavisualizationprogram(QList<int> inputParams, std::vector<int> size, QString valueVariable ,QString path)
 
 {
-    /*
-    m_para.insert(0,m_valueVariable2D1);
-    m_para.insert(1,m_valueVariable2D2);
-    m_para.insert(2,m_valueVariable3D1);
-    m_para.insert(3,m_valueVariable3D2);
-    m_para.insert(4,m_valueVariable3D3);
-    m_para.insert(5,m_valueKmeanLKK);
-    m_para.insert(6,m_valueKmeanLKC);
-    m_para.insert(7,m_valueKmeanPKK);
-    m_para.insert(8,m_valueKmeanPKC);
-    m_para.insert(9,m_valueKmeanRBKK);
-    m_para.insert(10,m_valueKmeanRBKC);
-    m_para.insert(11,m_valueSpectralClusteringK);
-    m_para.insert(12,m_valueSpectralClusteringC);
-    */
-
     m_path = path.toUtf8().constData();;//string
     
     // Test Unitaire n.8:
@@ -286,8 +270,6 @@ void Datavisualizationprogram::run()
      std::cout << "Erreur : Test Unitaire 7 Échoué" ;
      assert (1==1);
  }
-        
-        
         
         Clusteringclass cluster(input_data_Clustering[0].nr(), m_kclus, method, input_data_Clustering);
         cluster.runClustering();

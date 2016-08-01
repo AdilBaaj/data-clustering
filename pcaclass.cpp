@@ -22,7 +22,7 @@ Pcaclass::Pcaclass(int nbVariables, int nbRecords,  const Eigen::MatrixXf& input
 
 void Pcaclass::runPCA()
 {
-    //centre chaque variable sur sa moyenne
+    //Substract mean of each variable
 
     for(int i = 0; i < _inputData.rows(); i++)
     {
@@ -42,23 +42,23 @@ void Pcaclass::runPCA()
         }
     }
 
-    //Calcule matrice de variance covariance
+    //Compute covariance matrix
     _varMat = 1/float(_nbVariables) * _transformedData * _transformedData.transpose();
 
-    //Diagonalisation de la matrice de covariance:
+    //Diagonalization of covariance matrix
 
     Eigen::JacobiSVD<Eigen::MatrixXf> svd(_varMat, Eigen::ComputeThinU | Eigen::ComputeThinV);
     _eigenVec = svd.matrixU();
     _eigenValues = svd.singularValues();
 
-    //Calcul les composantes principales
+    //Compute principal components
 
     for(int i = 0; i < _nbVariables; i++)
     {
         _principalComponents.push_back(_transformedData.transpose() * _eigenVec.col(i));
     }
 
-    //Calcule la décomposition d'une data sur la base vecteur propre
+    //Compute decomposition of vector data on eigen vector basis
     //std::cout << _eigenVec * transformedData.col(0) << std::endl;
 }
 

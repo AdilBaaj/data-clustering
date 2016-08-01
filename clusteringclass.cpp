@@ -42,7 +42,7 @@ void Clusteringclass::linear_kmean()
     dlib::kkmeans< kernel_type > kmean(kc);
     std::vector<sample_type> initial_centers;
 
-    // tell the kkmeans object we made that we want to run k-means with k_clusters sets
+    // Tell the kkmeans object we made that we want to run k-means with k_clusters sets
     kmean.set_number_of_centers(_k_clusters);
 
     // You need to pick some initial centers for the k-means algorithm.  So here
@@ -50,10 +50,10 @@ void Clusteringclass::linear_kmean()
     // n points that are far apart (basically).
     pick_initial_centers(_k_clusters, initial_centers, _input_data, kmean.get_kernel());
 
-    // now run the k-means algorithm on our set of samples.
+    //Now run the k-means algorithm on our set of samples.
     kmean.train(_input_data, initial_centers);
 
-    // now loop over all our samples and get their predicted class.
+    //Now loop over all our samples and get their predicted class.
     for (unsigned long i = 0; i < _input_data.size(); ++i)
     {
         _assigned_cluster.push_back(kmean(_input_data[i]));
